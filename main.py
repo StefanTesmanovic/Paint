@@ -1,6 +1,8 @@
 import pygame
 from pygame.locals import *
 
+pygame.init()
+
 screenw = 500
 screenh = 100
 
@@ -18,7 +20,8 @@ while running:
     screen.fill((255, 255, 255))
     pygame.display.flip()
     for event in pygame.event.get():
-        if event == pygame.QUIT:
+        if event.type == pygame.QUIT:
             running = False
             pygame.quit()
-            exit
+
+    
