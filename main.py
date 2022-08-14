@@ -1,5 +1,6 @@
 import pygame
 from pygame.locals import *
+import pygame.locals
 
 pygame.init()
 
@@ -11,11 +12,10 @@ pygame.display.set_caption("Paint")
 screen.fill((255, 255, 255))
 
 def sejvuj():
-    ime = input()
-    pygame.image.save(screen, ime)
+    ime = input("Unesite ime")
+    pygame.image.save(screen, ime+".png")
 
 running = True
-
 while running:
     screen.fill((255, 255, 255))
     pygame.display.flip()
@@ -23,5 +23,8 @@ while running:
         if event.type == pygame.QUIT:
             running = False
             pygame.quit()
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_s and pygame.key.get_mods() & pygame.KMOD_CTRL:
+                sejvuj()
 
     
