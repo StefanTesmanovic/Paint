@@ -7,6 +7,7 @@ screen = pygame.display.set_mode((screenw, screenh))
 pygame.display.set_caption("Paint")
 
 
+
 running = True
 
 while running:
