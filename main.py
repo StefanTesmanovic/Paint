@@ -1,12 +1,12 @@
 import pygame
+from pygame.locals import *
 
 screenw = 500
-screenh = 500
+screenh = 100
 
-screen = pygame.display.set_mode((screenw, screenh))
+screen = pygame.display.set_mode((screenw, screenh), RESIZABLE)
 pygame.display.set_caption("Paint")
-pygame.draw.circle(screen, (100, 100, 100), (50, 50), 50)
-pygame.display.flip()
+screen.fill((255, 255, 255))
 
 def sejvuj():
     ime = input()
@@ -18,5 +18,5 @@ while running:
     for event in pygame.event.get():
         if event == pygame.QUIT:
             running = False
-
-pygame.quit()
+            pygame.quit()
+    pygame.display.flip()
