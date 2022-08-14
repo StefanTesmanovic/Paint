@@ -15,8 +15,10 @@ def sejvuj():
 running = True
 
 while running:
+    screen.fill((255, 255, 255))
+    pygame.display.flip()
     for event in pygame.event.get():
         if event == pygame.QUIT:
             running = False
             pygame.quit()
-    pygame.display.flip()
+            exit
