@@ -41,7 +41,7 @@ def sejvuj():
         saved = True
 running = True
 screen.fill((255, 255, 255))
-flag = 1
+flag = 0
 
 while running:
     for event in pygame.event.get():
@@ -53,8 +53,20 @@ while running:
                 sejvuj()
             if event.key == pygame.K_0:
                 flag = 0
-            if event.key == pygame.K_1:
+            elif event.key == pygame.K_1:
                 flag = 1
+            elif event.key == pygame.K_2:
+                flag = 2
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if flag == 2:
+                while True:
+                    try:
+                        (x, y) = pygame.mouse.get_pos()
+                        crtanje.floodFill(x, y, screen.get_at((x, y))[:3], (0, 0, 0), screen)
+                        break
+                    except:
+                        print()
+                        continue
         if pygame.mouse.get_pressed()[0]:
             if flag == 0:
                 crtanje.brush(event.pos[0], event.pos[1], 6, (255, 0, 200), screen)
