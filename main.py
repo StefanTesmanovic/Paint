@@ -1,11 +1,16 @@
+from platform import python_branch
+from re import S
+from tkinter import EXCEPTION
 import pygame
 from pygame.locals import *
 import pygame.locals
 import crtanje
 import os
+import sys
+sys.setrecursionlimit(3000)
 
 pygame.init()
-screenh = 500
+
 os.system("wmic path Win32_VideoController get CurrentHorizontalResolution > file.txt")
 file = open("file.txt", "r")
 lista = file.readlines()
@@ -23,9 +28,13 @@ file.close()
 os.system("del /f file.txt")
 print(screenh, screenw)
 
+color = (0, 255, 0)
+
 screen = pygame.display.set_mode((screenw-10, screenh-60))
 pygame.display.set_caption("Paint")
 screen.fill((255, 255, 255))
+
+states = []
 
 saved = False
 ime = ""
@@ -42,6 +51,7 @@ def sejvuj():
 running = True
 screen.fill((255, 255, 255))
 flag = 0
+savingState = False
 
 while running:
     for event in pygame.event.get():
@@ -59,19 +69,29 @@ while running:
                 flag = 2
         if event.type == pygame.MOUSEBUTTONDOWN:
             if flag == 2:
-                while True:
-                    try:
-                        (x, y) = pygame.mouse.get_pos()
-                        crtanje.floodFill(x, y, screen.get_at((x, y))[:3], (0, 0, 0), screen)
-                        break
-                    except:
-                        print()
-                        continue
+                try:
+                    (x, y) = pygame.mouse.get_pos()
+                    crtanje.floodFill(x, y, screen.get_at((x, y))[:3], color, screen)
+                except Exception as ex:
+                    print(ex)
+            if flag <= 1:
+                savingState = True
+                pikseli = []
+                pikseli.append("olovka")
+                #imace jedan niz za svaki kvadrat u liniji
+            elif flag == 2:
+                pikseli.append("kofica")
+                (x, y) = pygame.mouse.get_pos()
+                pikseli.append(x, y, color)
+                pass
+        elif event.type == pygame.MOUSEBUTTONUP:
+            states.append(pikseli)
+            savingState = False
         if pygame.mouse.get_pressed()[0]:
             if flag == 0:
-                crtanje.brush(event.pos[0], event.pos[1], 6, (255, 0, 200), screen)
+                pikseli.append(crtanje.brush(event.pos[0], event.pos[1], 6, color, screen))
             elif flag == 1:
-                crtanje.rubber(event.pos[0], event.pos[1], 6, screen)
+                pikseli.append(crtanje.rubber(event.pos[0], event.pos[1], 6, screen))
     pygame.display.flip()
     
 
