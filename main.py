@@ -41,7 +41,7 @@ def sejvuj():
         saved = True
 running = True
 screen.fill((255, 255, 255))
-
+flag = 1
 
 while running:
     for event in pygame.event.get():
@@ -51,10 +51,15 @@ while running:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_s and pygame.key.get_mods() & pygame.KMOD_CTRL:
                 sejvuj()
+            if event.key == pygame.K_0:
+                flag = 0
+            if event.key == pygame.K_1:
+                flag = 1
         if pygame.mouse.get_pressed()[0]:
-            print(event.pos)
-            crtanje.brush(event.pos[0], event.pos[1], 6, (255, 0, 200), screen)
-
+            if flag == 0:
+                crtanje.brush(event.pos[0], event.pos[1], 6, (255, 0, 200), screen)
+            elif flag == 1:
+                crtanje.rubber(event.pos[0], event.pos[1], 6, screen)
     pygame.display.flip()
     
 
