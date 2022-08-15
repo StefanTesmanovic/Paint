@@ -1,24 +1,49 @@
 import pygame
 from pygame.locals import *
 import pygame.locals
+import crtanje
+import os
 
 pygame.init()
+screenh = 500
+os.system("wmic path Win32_VideoController get CurrentHorizontalResolution > file.txt")
+file = open("file.txt", "r")
+lista = file.readlines()
+broj = lista[2]
+broj = broj[1] + broj[3] + broj[5] + broj[7]
+screenw = int(broj)
+file.close()
+os.system("wmic path Win32_VideoController get CurrentVerticalResolution > file.txt")
+file = open("file.txt", "r")
+lista = file.readlines()
+broj = lista[2]
+broj = broj[1] + broj[3] + broj[5]
+screenh = int(broj)
+file.close()
+os.system("del /f file.txt")
+print(screenh, screenw)
 
-screenw = 500
-screenh = 100
-
-screen = pygame.display.set_mode((screenw, screenh), RESIZABLE)
+screen = pygame.display.set_mode((screenw-10, screenh-60))
 pygame.display.set_caption("Paint")
 screen.fill((255, 255, 255))
 
+saved = False
+ime = ""
 def sejvuj():
-    ime = input("Unesite ime")
-    pygame.image.save(screen, ime+".png")
-
+    global saved
+    global ime
+    if saved:
+        os.system("del /f "+ime+".png")
+        pygame.image.save(screen, ime+".png")
+    else:   
+        ime = input("Unesite ime: ")
+        pygame.image.save(screen, ime+".png")
+        saved = True
 running = True
+screen.fill((255, 255, 255))
+
+
 while running:
-    screen.fill((255, 255, 255))
-    pygame.display.flip()
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -26,5 +51,12 @@ while running:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_s and pygame.key.get_mods() & pygame.KMOD_CTRL:
                 sejvuj()
+        if pygame.mouse.get_pressed()[0]:
+            print(event.pos)
+            crtanje.brush(event.pos[0], event.pos[1], 6, (255, 0, 200), screen)
+
+    pygame.display.flip()
+    
+
 
     
