@@ -1,13 +1,8 @@
-from platform import python_branch
-from re import S
-from tkinter import EXCEPTION
 import pygame
 from pygame.locals import *
 import pygame.locals
 import crtanje
 import os
-import sys
-sys.setrecursionlimit(3000)
 
 pygame.init()
 
@@ -44,7 +39,7 @@ def sejvuj():
     if saved:
         os.system("del /f "+ime+".png")
         pygame.image.save(screen, ime+".png")
-    else:   
+    else:
         ime = input("Unesite ime: ")
         pygame.image.save(screen, ime+".png")
         saved = True
@@ -67,23 +62,28 @@ while running:
                 flag = 1
             elif event.key == pygame.K_2:
                 flag = 2
+            elif event.key == pygame.K_3:
+                flag = 3
         if event.type == pygame.MOUSEBUTTONDOWN:
             if flag == 2:
-                try:
-                    (x, y) = pygame.mouse.get_pos()
-                    crtanje.floodFill(x, y, screen.get_at((x, y))[:3], color, screen)
-                except Exception as ex:
-                    print(ex)
+                (x, y) = pygame.mouse.get_pos()
+                crtanje.floodFill(x, y, screen.get_at((x, y))[:3], color, screen)
+            
             if flag <= 1:
                 savingState = True
                 pikseli = []
                 pikseli.append("olovka")
                 #imace jedan niz za svaki kvadrat u liniji
             elif flag == 2:
+                pikseli = []
                 pikseli.append("kofica")
                 (x, y) = pygame.mouse.get_pos()
-                pikseli.append(x, y, color)
-                pass
+                pikseli.append((x, y, color))
+            elif flag == 3:
+                (x, y) = pygame.mouse.get_pos()
+                color = crtanje.pipeta(x, y, screen)
+                flag = 0
+
         elif event.type == pygame.MOUSEBUTTONUP:
             states.append(pikseli)
             savingState = False
