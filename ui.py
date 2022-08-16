@@ -25,43 +25,43 @@ screen.fill((255, 255, 255))
 
 
 
-def header ():      #gornji menu, nema nista na njemu
+def header(screen):      #gornji menu, nema nista na njemu
     pygame.draw.rect (screen, 'gray' ,[0, 0, 2500, 100])
     
 #===========================================================================================================================
     
-def menu ():        #u ovoj funkciji su sve slike (save, save as, undo, redo...), kvadrati za odabir debljine i desni menu
+def menu(screen):        #u ovoj funkciji su sve slike (save, save as, undo, redo...), kvadrati za odabir debljine i desni menu
     pygame.draw.rect (screen, 'gray' ,[0, 0, 165, 2500])
     
-    save = pygame.image.load(r"C:\Users\laptop3\Paint\save+icon-1320167995084087448.png")
+    save = pygame.image.load(r"C:\Users\admin\Documents\PaintPetnica\save+icon-1320167995084087448.png")
     save1 = pygame.transform.scale(save,(100,100))
     s = pygame.draw.rect (screen, 'gray', [10,0,100,100])
     
-    save_as = pygame.image.load(r"C:\Users\laptop3\Paint\save-as-icon-9.jpg")
+    save_as = pygame.image.load(r"C:\Users\admin\Documents\PaintPetnica\save-as-icon-9.jpg")
     save_as1 = pygame.transform.scale (save_as,(140,140))
     s_a = pygame.draw.rect (screen, 'gray', [130,-13,110,110])
     
-    undo = pygame.image.load(r"C:\Users\laptop3\Paint\img_518924.png")
+    undo = pygame.image.load(r"C:\Users\admin\Documents\PaintPetnica\img_518924.png")
     undo1 = pygame.transform.scale (undo,(90,90))
     u = pygame.draw.rect (screen, 'gray', [253,-3,100,100])
     
-    redo = pygame.image.load(r"C:\Users\laptop3\Paint\img_93928.png")
+    redo = pygame.image.load(r"C:\Users\admin\Documents\PaintPetnica\img_93928.png")
     redo1 = pygame.transform.scale (redo,(90,90))
     r = pygame.draw.rect (screen, 'gray', [358,-3,100,100])
         
-    brush = pygame.image.load(r"C:\Users\laptop3\Paint\103414.png")
+    brush = pygame.image.load(r"C:\Users\admin\Documents\PaintPetnica\103414.png")
     brush1 = pygame.transform.scale (brush,(85,85))
     b = pygame.draw.rect (screen, 'gray', [10,110,100,90])
     
-    rubber = pygame.image.load(r"C:\Users\laptop3\Paint\3261131-200.png")
+    rubber = pygame.image.load(r"C:\Users\admin\Documents\PaintPetnica\3261131-200.png")
     rubber1 = pygame.transform.scale (rubber,(90,90))
     rub = pygame.draw.rect (screen, 'gray', [60,210,100,90])
     
-    line = pygame.image.load(r"C:\Users\laptop3\Paint\177506-200.png")
+    line = pygame.image.load(r"C:\Users\admin\Documents\PaintPetnica\177506-200.png")
     line1 = pygame.transform.scale (line,(90,90))
     l = pygame.draw.rect (screen, 'gray', [10,320,100,90])
     
-    text = pygame.image.load(r"C:\Users\laptop3\Paint\text.png")
+    text = pygame.image.load(r"C:\Users\admin\Documents\PaintPetnica\text.png")
     text1 = pygame.transform.scale (text,(90,90))
     t = pygame.draw.rect (screen, 'gray', [60,420,90,90])
     
@@ -157,17 +157,17 @@ def sejvuj():
                     #active_color = rgb_list[i]
                     
 #=======================================================================================================
-
+'''
 running = True
 while running:
     screen.fill((255, 255, 255))
     mouse = pygame.mouse.get_pos()
     #if mouse[1] < 100
-    header()
+    header(screen)
     #brush()
     #rubber()
     #floodFill()
-    brushes, d_component_list, s_component_list, u_component_list = menu()
+    brushes, d_component_list, s_component_list, u_component_list = menu(screen)
     colors,rgb_list = boje()
     pygame.display.flip()
     for event in pygame.event.get():
@@ -211,6 +211,6 @@ while running:
              
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_s and pygame.key.get_mods() & pygame.KMOD_CTRL:
-                sejvuj()
+                sejvuj()'''
                 
     

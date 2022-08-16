@@ -3,6 +3,9 @@ from pygame.locals import *
 import pygame.locals
 import crtanje
 import os
+import ui
+
+color = (0, 255, 0)
 
 pygame.init()
 screenh = 500
@@ -57,13 +60,16 @@ screen.fill((255, 255, 255))
 flag = 1
 pikseli = []
 while running:
+    #ui.header(screen)
+    #ui.menu(screen)
+    #ui.boje()
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
             pygame.quit()
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_s and pygame.key.get_mods() & pygame.KMOD_CTRL:
-                sejvuj()
+                ui.sejvuj()
             if event.key == pygame.K_0:
                 flag = 0
             if event.key == pygame.K_1:
@@ -78,7 +84,7 @@ while running:
                 pikseli.append("cetkica")
             if flag == 2:
                 (x,y) = pygame.mouse.get_pos()
-                crtanje.tekst(x, y, screen)
+                crtanje.tekst(x, y, screen, color)
             if flag == 3:
                 start = pygame.mouse.get_pos()
 
@@ -86,11 +92,11 @@ while running:
             state.append(pikseli)
             if flag == 3:
                 end = pygame.mouse.get_pos()
-                crtanje.crtanjeLinija(start, end, (100, 100, 100), state, screen)
+                crtanje.crtanjeLinija(start, end, color, state, screen)
 
         if pygame.mouse.get_pressed()[0]:
             if flag == 0:
-                pikseli.append(crtanje.brush(event.pos[0], event.pos[1], 6, (255, 0, 200), screen))
+                pikseli.append(crtanje.brush(event.pos[0], event.pos[1], 6, color, screen))
             elif flag == 1:
                 pikseli.append(crtanje.rubber(event.pos[0], event.pos[1], 6, screen))
     pygame.display.flip()

@@ -88,7 +88,7 @@ def crtanjeLinija(start, end, boja, lista_stanja, screen):
     #lista_stanja[n][3] = boja
  
 
-def tekst(x, y, screen):
+def tekst(x, y, screen, boja):
     running = True
     pygame.font.init()
     font = pygame.font.SysFont("Consolas", 20)
@@ -101,7 +101,7 @@ def tekst(x, y, screen):
                     running = False
                 else:
                     try:
-                        pisi = font.render(chr(event.key), True, (0, 255, 255))
+                        pisi = font.render(chr(event.key), True, boja)
                         screen.blit(pisi, (x+pom*10, y))
                         pygame.display.flip()
                         pom += 1
