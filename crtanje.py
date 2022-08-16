@@ -1,7 +1,6 @@
 import pygame
 from pygame.locals import *
 import pygame.locals
-from pygame import gfxdraw
 
 def brush(x, y, thickness, color, screen):
     pygame.draw.rect(screen, color, pygame.Rect(x-thickness//2, y-thickness//2, thickness, thickness))
@@ -34,25 +33,78 @@ def rubber(x, y, thickness, screen):
                 boja = screen.get_at((a+i*thickness, b+j))[:3]
             lista.append((a+i*thickness, b+j, boja))
     return lista
-def floodFill(x, y, oc, nc, screen):
-    queue = []
-    queue.append((x,y))
-    obojeni = []
-    while len(queue) > 0:
-        (x, y) = queue.pop(0)
-        print(x,y)
-        obojeni.append((x,y))
-        screen.set_at((x, y), nc)
-        #screen.fill(nc, ((x, y), (1, 1)))
-        #gfxdraw.pixel(screen, x, y, nc)
-        if screen.get_at((x+1, y))[:3] == oc and not (x+1, y) in obojeni:
-            queue.append((x+1, y))
-        if screen.get_at((x-1, y))[:3] == oc and not (x-1, y) in obojeni:
-            queue.append((x-1, y))
-        if screen.get_at((x, y+1))[:3] == oc and not (x, y+1) in obojeni:
-            queue.append((x, y+1))
-        if screen.get_at((x, y-1))[:3] == oc and not (x, y-1) in obojeni:
-            queue.append((x, y-1))
 
-def pipeta(x, y, screen):
-    return screen.get_at((x,y))[:3]
+def crtanjeLinija(start, end, boja, lista_stanja, screen):
+    n = len(lista_stanja) - 1
+    lista = []
+    oc = screen.get_at(start)[:3]
+    pygame.draw.line(screen, boja, start, end)
+    lista.append("linija")
+    lista.append((start, end, oc))
+    '''(x1, y1) = start
+    (x2, y2) = end
+    dx = x2 - x1
+    dy = y2 - y1
+
+    is_steep = abs(dy) > abs(dx)
+
+    if is_steep:
+        x1, y1 = y1, x1
+        x2, y2 = y2, x2
+
+    swapped = False
+    if x1 > x2:
+        x1, x2 = x2, x1
+        y1, y2 = y2, y1
+        swapped = True
+
+    dx = x2 - x1
+    dy = y2 - y1
+
+    error = int(dx / 2.0)
+    ystep = 1 if y1 < y2 else -1
+
+    y = y1
+    points = []
+    for x in range(x1, x2 + 1):
+    
+    #boja:
+        stara_boja.append(screen.get_at((x, y))[:3])
+        screen.set_at((x, y), boja)
+    #koordinate:
+        coord = (y, x) if is_steep else (x, y)
+        points.append(coord)
+        error -= abs(dy)
+        if error < 0:
+            y += ystep
+            error += dx
+
+    if swapped:
+        points.reverse()'''
+
+    #lista_stanja[n][0] = "linija"
+    #lista_stanja[n][1] = points
+    #lista_stanja[n][2] = stara_boja
+    #lista_stanja[n][3] = boja
+ 
+
+def tekst(x, y, screen):
+    running = True
+    pygame.font.init()
+    font = pygame.font.SysFont("Consolas", 20)
+
+    pom = 0
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_KP_ENTER:
+                    running = False
+                else:
+                    try:
+                        pisi = font.render(chr(event.key), True, (0, 255, 255))
+                        screen.blit(pisi, (x+pom*10, y))
+                        pygame.display.flip()
+                        pom += 1
+                    except:
+                        continue
+
