@@ -100,15 +100,20 @@ def boje():             #sve boje su ovde
 #===========================================================================================================
 saved = False
 ime = ""
+
 def sejvuj():    
     global saved
     global ime
 
     if saved:
+        root = Tk()
+        root.withdraw()
+
+        directory = filedialog.asksaveasfilename()
         os.system("del /f "+ime+".png")
         pygame.image.save(screen, ime+".png")
     else:   
-        ime = input("Unesite ime: ")
+        ime = "test" # input("Unesite ime: ")
         pygame.image.save(screen, ime+".png")
         saved = True
     
@@ -169,23 +174,26 @@ while running:
             for i in range(len(s_component_list)):
                 if s_component_list[i].collidepoint(event.pos):
                     active_click2 = s_component_list[i]
-            
-            '''for i in range(len(u_component_list)):
-                if [i].collidepoint(event.pos):
-                    active_click3 = u_component_list[i]'''
         
         if event.type == pygame.MOUSEBUTTONDOWN:
             for i in range(len(s_component_list)):
                 if s_component_list[i].collidepoint(event.pos):
-                    root = Tk()
-                    root.withdraw()
-
-                    directory = filedialog.asksaveasfilename()
+                    sejvuj()
                     
-        '''if event.type == pygame.MOUSEBUTTONDOWN:
-            for i in range (len())'''
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            for i in range (len(d_component_list)):
+                if d_component_list[i].collidepoint(event.pos):
+                    pass
+                    # OVDE SAM TI OSTAVIO DA DODAS FUNKCIJE ZA CRTANJE
+                    
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            for i in range (len(u_component_list)):
+                if u_component_list[i].collidepoint(event.pos):
+                    pass
+                    # OVDE SAM TI OSTAVIO DA DODAS FUNKCIJE ZA UNDO I REDO
              
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_s and pygame.key.get_mods() & pygame.KMOD_CTRL:
                 sejvuj()
+                
     
