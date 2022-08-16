@@ -181,6 +181,9 @@ while running:
                     root.withdraw()
 
                     directory = filedialog.asksaveasfilename()
+                    
+        '''if event.type == pygame.MOUSEBUTTONDOWN:
+            for i in range (len())'''
              
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_s and pygame.key.get_mods() & pygame.KMOD_CTRL:
