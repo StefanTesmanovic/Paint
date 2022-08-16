@@ -52,9 +52,6 @@ def undo():
     global state
     pass
             
-
-
-###################################
 running = True
 screen.fill((255, 255, 255))
 flag = 1
