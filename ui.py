@@ -35,32 +35,37 @@ def menu ():        #u ovoj funkciji su sve slike (save, save as, undo, redo...)
     
     save = pygame.image.load(r"C:\Users\laptop3\Paint\save+icon-1320167995084087448.png")
     save1 = pygame.transform.scale(save,(100,100))
-    s = pygame.draw.rect (screen, 'yellow', [10,0,100,100])
+    s = pygame.draw.rect (screen, 'gray', [10,0,100,100])
     
     save_as = pygame.image.load(r"C:\Users\laptop3\Paint\save-as-icon-9.jpg")
     save_as1 = pygame.transform.scale (save_as,(140,140))
-    s_a = pygame.draw.rect (screen, 'yellow', [130,-13,110,110])
+    s_a = pygame.draw.rect (screen, 'gray', [130,-13,110,110])
     
     undo = pygame.image.load(r"C:\Users\laptop3\Paint\img_518924.png")
     undo1 = pygame.transform.scale (undo,(90,90))
-    u = pygame.draw.rect (screen, 'yellow', [253,-3,100,100])
+    u = pygame.draw.rect (screen, 'gray', [253,-3,100,100])
     
     redo = pygame.image.load(r"C:\Users\laptop3\Paint\img_93928.png")
     redo1 = pygame.transform.scale (redo,(90,90))
-    r = pygame.draw.rect (screen, 'yellow', [358,-3,100,100])
+    r = pygame.draw.rect (screen, 'gray', [358,-3,100,100])
         
     brush = pygame.image.load(r"C:\Users\laptop3\Paint\103414.png")
     brush1 = pygame.transform.scale (brush,(85,85))
-    b = pygame.draw.rect (screen, 'yellow', [10,110,100,90])
+    b = pygame.draw.rect (screen, 'gray', [10,110,100,90])
     
     rubber = pygame.image.load(r"C:\Users\laptop3\Paint\3261131-200.png")
     rubber1 = pygame.transform.scale (rubber,(90,90))
-    rub = pygame.draw.rect (screen, 'yellow', [60,210,100,90])
+    rub = pygame.draw.rect (screen, 'gray', [60,210,100,90])
     
     line = pygame.image.load(r"C:\Users\laptop3\Paint\177506-200.png")
     line1 = pygame.transform.scale (line,(90,90))
-    l = pygame.draw.rect (screen, 'yellow', [10,320,100,90])
-    d_component_list = [b,rub,l]
+    l = pygame.draw.rect (screen, 'gray', [10,320,100,90])
+    
+    text = pygame.image.load(r"C:\Users\laptop3\Paint\text.png")
+    text1 = pygame.transform.scale (text,(90,90))
+    t = pygame.draw.rect (screen, 'gray', [60,420,90,90])
+    
+    d_component_list = [b,rub,l,t]
     s_component_list = [s, s_a]
     u_component_list = [u,r]
     
@@ -81,6 +86,7 @@ def menu ():        #u ovoj funkciji su sve slike (save, save as, undo, redo...)
     screen.blit(brush1,(20, 110))
     screen.blit(rubber1,(60, 210))
     screen.blit(line1,(10, 320))
+    screen.blit(text1,(60, 420))
     
     return brush_list, d_component_list, s_component_list, u_component_list
 
@@ -108,13 +114,26 @@ def sejvuj():
     if saved:
         root = Tk()
         root.withdraw()
-
-        directory = filedialog.asksaveasfilename()
-        os.system("del /f "+ime+".png")
-        pygame.image.save(screen, ime+".png")
+        
+        filePath = filedialog.asksaveasfilename(defaultextension='.png',
+                                                 filetypes=[
+                                                     ('PNG file','.png')
+                                                 ])
+        os.system("del /f "+filePath)
+        pygame.image.save(screen, filePath)
     else:   
-        ime = "test" # input("Unesite ime: ")
-        pygame.image.save(screen, ime+".png")
+        root = Tk()
+        root.withdraw()
+
+        #filename = filedialog.asksaveasfilename(initialdir='/', title='Save File', filetypes=(('Text Files', 'txt.*'), ('All Files', '*.*')))
+        
+        filePath = filedialog.asksaveasfilename(defaultextension='.png',
+                                                 filetypes=[
+                                                     ('PNG file','.png')
+                                                 ])
+
+        #ime = input("Unesite ime: ")
+        pygame.image.save(screen, filePath)
         saved = True
     
     
@@ -184,7 +203,7 @@ while running:
             for i in range (len(d_component_list)):
                 if d_component_list[i].collidepoint(event.pos):
                     pass
-                    # OVDE SAM TI OSTAVIO DA DODAS FUNKCIJE ZA CRTANJE
+                    # OVDE SAM TI OSTAVIO DA DODAS FUNKCIJE ZA CRTANJE,BRISANJE I TEKST
                     
         if event.type == pygame.MOUSEBUTTONDOWN:
             for i in range (len(u_component_list)):
