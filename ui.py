@@ -125,8 +125,6 @@ def sejvuj():
         root = Tk()
         root.withdraw()
 
-        #filename = filedialog.asksaveasfilename(initialdir='/', title='Save File', filetypes=(('Text Files', 'txt.*'), ('All Files', '*.*')))
-        
         filePath = filedialog.asksaveasfilename(defaultextension='.png',
                                                  filetypes=[
                                                      ('PNG file','.png')
